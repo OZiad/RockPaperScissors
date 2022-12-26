@@ -1,1 +1,1 @@
-# RockPaperScissors
+Simple RockPaperScissors game in HTML/CSS/JavaScript
