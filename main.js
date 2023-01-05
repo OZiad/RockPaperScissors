@@ -1,4 +1,20 @@
-let getComputerChoice = () => {
+let winnerMsg = "You Win!";
+let loserMsg = "You Lose!";
+let tieMsg = "it's a tie!";
+let playerScore = 0;
+let computerScore = 0;
+const result = document.querySelector('.result');
+const rock = document.querySelector('.Rock');
+const paper = document.querySelector('.Paper');
+const scissors = document.querySelector('.Scissors');
+const buttons = document.querySelectorAll('button');
+
+rock.addEventListener('click', () => (playRound('rock', getComputerChoice())));
+paper.addEventListener('click', () => (playRound('paper', getComputerChoice())));
+scissors.addEventListener('click', () => (playRound('scissors', getComputerChoice())));
+
+
+const getComputerChoice = () => {
     let randomNum = Math.floor(Math.random() * 100);
     if (randomNum < 33)
         return "Rock";
@@ -8,44 +24,82 @@ let getComputerChoice = () => {
         return "Paper";
 }
 
-let playerChoice = "roCK";
-let winnerMsg = "You Win!";
-let loserMsg = "You Lose!";
-
-let startGame = (playerSelection, ComputerSelection) => {
+const playRound = (playerSelection, ComputerSelection) => {
+    
     playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
-    if (playerSelection == ComputerSelection)
-        return "it's a tie!";
+    if (playerSelection == ComputerSelection) {
+        result.textContent = tieMsg;
+        return tieMsg;
+    }
     else if (playerSelection == "Rock") {
-        if (ComputerSelection == "Paper")
-            return loserMsg;
-        else
-            return winnerMsg;
+        if (ComputerSelection == "Paper") {
+            roundLose();
+        } else {
+            roundWin();
+        }
     }
     else if (playerSelection == "Paper") {
-        if (ComputerSelection == "Scissors")
-            return loserMsg;
-        else
-            return winnerMsg;
+        if (ComputerSelection == "Scissors") {
+            roundLose();
+        }
+        else {
+            roundWin();
+        }
     }
     else if (playerSelection == "Scissors") {
-        if (ComputerSelection == "Rock")
-            return loserMsg;
-        else
-            return winnerMsg;
+        if (ComputerSelection == "Rock") {
+            roundLose();
+        }
+        else {
+        roundWin();
+        }
+    }
+    if(playerScore == 5){
+        disableButtons();
+        result.textContent = "CONGRATS! YOU WON!" + `\nPlayer Score: ${playerScore}, Computer Score ${computerScore}`;
+        
+    }
+    else if(computerScore == 5){
+        disableButtons();
+        result.textContent = "YOU LOST HAHA!" + `\nPlayer Score: ${playerScore}, Computer Score ${computerScore}`;
     }
 }
-let game = () => {
-    let playerWins = 0;
-    for (let i = 0; i < 5; i++) {
-        let choice = prompt("Enter rock paper or scissors");
-        console.log(choice);
-        if (startGame(choice, getComputerChoice()) == winnerMsg)
-            playerWins++;
-    }
-    if (playerWins >= 3)
-        return "Player Wins!";
-    else
-        return "Computer Wins!"
+
+function roundWin(){
+    result.textContent = winnerMsg;
+    playerScore++;
+    return winnerMsg;
 }
-console.log(game());
+
+function roundLose(){
+    result.textContent = loserMsg;
+    computerScore++;
+    return loserMsg;
+}
+
+function disableButtons(){
+    buttons.forEach(button => button.disabled=true);
+}
+
+function restartGame(){
+    playerScore = 0;
+    computerScore = 0;
+    buttons.forEach(button => button.disabled=false);
+}
+
+// const game = (playerChoice) => {
+//     let playerScore = 0;
+//     let computerScore = 0;
+//     for (let i = 0; i < 5 && playerScore < 3 && computerScore < 3; i++) {
+        
+//         if (playRound(playerChoice, getComputerChoice()) == winnerMsg)
+//             playerScore++;
+//         else
+//             computerScore++;
+//     }
+//     if (playerScore >= 3)
+//         result.textContent = winnerMsg + ` Player Score: ${playerScore}. Computer Score: ${computerScore}`;
+//     else
+//         result.textContent = loserMsg + ` Player Score: ${playerScore}. Computer Score: ${computerScore}`;
+// }
+// console.log(game());

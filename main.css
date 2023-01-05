@@ -1,5 +1,47 @@
 html {
     font-family: sans-serif;
+    background-color: rgb(14, 80, 97);
 }
 
+h1,
+h2 {
+    color: rgb(163, 216, 248)
+}
 
+.container {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-evenly; */
+    align-items: center;
+}
+
+button {
+    font-size: 30px;
+    background-color: rgb(191, 191, 122);
+    border: 2px solid;
+    padding: 5px;
+}
+
+.choice {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+button.Rock {
+    color: rgb(109, 1, 1);
+}
+
+button.Paper {
+    color: green;
+}
+
+button.Scissors {
+    color: blue;
+}
+
+.result {
+    padding: 20px;
+    font-size: 30px;
+    color: blanchedalmond
+}
